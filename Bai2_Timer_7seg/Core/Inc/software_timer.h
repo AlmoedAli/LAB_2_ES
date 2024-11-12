@@ -23,6 +23,9 @@ extern uint16_t timer1;
 extern uint16_t timer2;
 extern uint16_t timer3;
 
+extern uint16_t ledState;
+extern uint16_t ledFlag;
+
 void timer_init();
 void setTimer2(uint16_t duration);
 

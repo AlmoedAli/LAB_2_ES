@@ -24,6 +24,9 @@ uint16_t timer1 = 0;
 uint16_t timer2 = 0;
 uint16_t timer3 = 0;
 
+uint16_t ledState = 0;
+uint16_t ledFlag = 0;
+uint16_t ledCount = 1;
 
 /**
   * @brief  Init timer interrupt
@@ -97,6 +100,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 					timer3 = 5000;
 				} else {
 					timer3 = 1000;
+				}
+			}
+		}
+		if(ledCount > 0){
+			ledCount--;
+			if(ledCount <= 0){
+				ledFlag = 1;
+
+				if(ledState == 0){
+					ledCount = 5000;
+					ledState = 1;
+				}else if(ledState == 1){
+					ledCount = 3000;
+					ledState = 2;
+				}else {
+					ledCount = 2000;
+					ledState = 0;
 				}
 			}
 		}
