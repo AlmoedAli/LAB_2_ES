@@ -109,15 +109,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer2(2);
   while (1)
   {
     /* USER CODE END WHILE */
 	  while(!flag_timer2);
 	  flag_timer2 = 0;
-	  button_Scan();
-	  test_LedDebug();
-	  ds3231_ReadTime();
-	  test_Uart();
+	  test_7seg () ;
+//	  button_Scan();
+//	  test_LedDebug();
+//	  ds3231_ReadTime();
+//	  test_Uart();
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -187,6 +190,14 @@ void test_LedDebug(){
 	if(count_led_debug == 0){
 		HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
 	}
+}
+
+void test_7seg(){
+	//write number1 at led index 0 (not show dot)
+	led7_SetDigit(1, 0, 1);
+	led7_SetDigit(2, 1, 1);
+	led7_SetDigit(3, 2, 0);
+	led7_SetDigit(4, 3, 0);
 }
 
 void test_button(){
