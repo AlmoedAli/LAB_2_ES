@@ -50,6 +50,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 Bai2_Timer_7seg.list \
 
+OBJCOPY_HEX += \
+Bai2_Timer_7seg.hex \
+
 OBJCOPY_BIN += \
 Bai2_Timer_7seg.bin \
 
@@ -61,8 +64,8 @@ all: main-build
 main-build: Bai2_Timer_7seg.elf secondary-outputs
 
 # Tool invocations
-Bai2_Timer_7seg.elf: $(OBJS) $(USER_OBJS) D:\abc\stm32\kit_release\Source\ code\Bai2_Timer_7seg\STM32F407ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Bai2_Timer_7seg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\abc\stm32\kit_release\Source code\Bai2_Timer_7seg\STM32F407ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai2_Timer_7seg.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Bai2_Timer_7seg.elf: $(OBJS) $(USER_OBJS) E:\HK_241\Embedded\ System\LAB\LAB_2\BKIT_ARM4_Bai2_Timer_7seg\Bai2_Timer_7seg\STM32F407ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Bai2_Timer_7seg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\HK_241\Embedded System\LAB\LAB_2\BKIT_ARM4_Bai2_Timer_7seg\Bai2_Timer_7seg\STM32F407ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai2_Timer_7seg.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -76,6 +79,11 @@ Bai2_Timer_7seg.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+Bai2_Timer_7seg.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "Bai2_Timer_7seg.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 Bai2_Timer_7seg.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Bai2_Timer_7seg.bin"
 	@echo 'Finished building: $@'
@@ -83,10 +91,10 @@ Bai2_Timer_7seg.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) $(SIZE_OUTPUT)$(OBJDUMP_LIST)$(EXECUTABLES)$(OBJS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(OBJCOPY_BIN) Bai2_Timer_7seg.elf
+	-$(RM) $(OBJCOPY_HEX)$(SIZE_OUTPUT)$(OBJDUMP_LIST)$(EXECUTABLES)$(OBJS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(OBJCOPY_BIN) Bai2_Timer_7seg.elf
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

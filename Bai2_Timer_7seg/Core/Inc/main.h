@@ -63,9 +63,7 @@ void Error_Handler(void);
 #define OUTPUT_Y0_Pin GPIO_PIN_5
 #define OUTPUT_Y0_GPIO_Port GPIOE
 #define OUTPUT_Y1_Pin GPIO_PIN_6
-#define OUTPUT_Y1_GPIO_Port GPIOE
-#define INPUT_X0_Pin GPIO_PIN_6
-#define INPUT_X0_GPIO_Port GPIOA
+#define OUTPUT_Y1_GPIO_Port GPIOA
 #define INPUT_X1_Pin GPIO_PIN_7
 #define INPUT_X1_GPIO_Port GPIOA
 #define INPUT_X2_Pin GPIO_PIN_4
