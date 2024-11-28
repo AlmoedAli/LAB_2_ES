@@ -67,7 +67,7 @@ void test_Uart();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void set_7seg(uint16_t hours, uint16_t minute);
+void set_7seg(uint16_t led1, uint16_t led2, uint16_t led3, uint16_t led4);
 /* USER CODE END 0 */
 
 /**
@@ -112,11 +112,9 @@ int main(void)
   uint8_t toggle = 1;
   setTimer2(250);
 
-  uint16_t hours = 0;
-  uint16_t minute = 0;
-  uint16_t second = 0;
-
-  setTimerColon(250);
+  uint16_t buffer7Led[4] = {1, 2, 3, 4};
+  uint16_t swap = 1;
+  setTimerColon(0);
   setTimerClock(1000);
   while (1)
   {
@@ -128,20 +126,12 @@ int main(void)
 	  }
 	  if(isFlagClock() == 1)
 	  {
-		  second++;
-		  if(second > 59){
-			  minute++;
-			  if(minute>59){
-				  hours++;
-				  if(hours>23){
-					  hours = 0;
-				  }
-			  }
-		  }
-	  }
-	  if(isTimer2Flag() == 1)
-	  {
-		  set_7seg(hours, minute);
+		  set_7seg(1, 2, 3, 4);
+		  swap = buffer7Led[0];
+		  buffer7Led[0] = buffer7Led[1];
+		  buffer7Led[1] = buffer7Led[2];
+		  buffer7Led[2] = buffer7Led[3];
+		  buffer7Led[3] = buffer7Led[0];
 	  }
     /* USER CODE BEGIN 3 */
   }
@@ -242,12 +232,12 @@ void test_Uart(){
 	}
 }
 
-void set_7seg(uint16_t hours, uint16_t minute)
+void set_7seg(uint16_t led1, uint16_t led2, uint16_t led3, uint16_t led4)
 {
-	led7_SetDigit(hours/10, 0, 1);
-	led7_SetDigit(hours%10, 1, 1);
-	led7_SetDigit(minute/10, 2, 0);
-	led7_SetDigit(minute%10, 3, 0);
+	led7_SetDigit(led1, 0, 1);
+	led7_SetDigit(led2, 1, 1);
+	led7_SetDigit(led3, 2, 0);
+	led7_SetDigit(led4, 3, 0);
 }
 /* USER CODE END 4 */
 

@@ -95,7 +95,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 				timerClock = 1000;
 			}
 		}
-
 	}
+	led7_Scan();
 }
 
