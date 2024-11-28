@@ -67,7 +67,7 @@ void test_Uart();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void test_7seg(uint16_t hours, uint16_t minute);
 /* USER CODE END 0 */
 
 /**
@@ -109,18 +109,42 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer2(2);
+  uint8_t toggle = 1;
+  setTimer2(250);
+
+  uint16_t hours = 0;
+  uint16_t minute = 0;
+  uint16_t second = 0;
+
+  setTimerColon(250);
+  setTimerClock(1000);
   while (1)
   {
     /* USER CODE END WHILE */
-	  while(!flag_timer2);
-	  flag_timer2 = 0;
-	  test_7seg () ;
-//	  button_Scan();
-//	  test_LedDebug();
-//	  ds3231_ReadTime();
-//	  test_Uart();
-
+//
+	  // Set colon 2Hz
+	  if(isFlagColon() == 1)
+	  {
+		  toggle = 1 - toggle;
+		  led7_SetColon(toggle);
+	  }
+	  if(isFlagClock() == 1)
+	  {
+		  second++;
+		  if(second > 59){
+			  minute++;
+			  if(minute>59){
+				  hours++;
+				  if(hours>23){
+					  hours = 0;
+				  }
+			  }
+		  }
+	  }
+	  if(isTimer2Flag() == 1)
+	  {
+		  set_7seg(hours, minute);
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -192,12 +216,12 @@ void test_LedDebug(){
 	}
 }
 
-void test_7seg(){
+void test_7seg(uint16_t hours, uint16_t minute){
 	//write number1 at led index 0 (not show dot)
-	led7_SetDigit(1, 0, 1);
-	led7_SetDigit(2, 1, 1);
-	led7_SetDigit(3, 2, 0);
-	led7_SetDigit(4, 3, 0);
+	led7_SetDigit(hours/10, 0, 1);
+	led7_SetDigit(hours%10, 1, 1);
+	led7_SetDigit(minute/10, 2, 0);
+	led7_SetDigit(minute%10, 3, 0);
 }
 
 void test_button(){
@@ -218,6 +242,14 @@ void test_Uart(){
 		uart_Rs232SendNum(ds3231_sec);
 		uart_Rs232SendString("\n");
 	}
+}
+
+void set_7seg()
+{
+	led7_SetDigit(1, 0, 0);
+	led7_SetDigit(2, 1, 0);
+	led7_SetDigit(3, 2, 0);
+	led7_SetDigit(4, 3, 0);
 }
 /* USER CODE END 4 */
 
