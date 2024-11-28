@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -12,7 +12,6 @@ RM := rm -rf
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
--include subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -44,6 +43,9 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 EXECUTABLES += \
 Bai5_UART.elf \
 
+MAP_FILES += \
+Bai5_UART.map \
+
 SIZE_OUTPUT += \
 default.size.stdout \
 
@@ -53,9 +55,6 @@ Bai5_UART.list \
 OBJCOPY_HEX += \
 Bai5_UART.hex \
 
-OBJCOPY_BIN += \
-Bai5_UART.bin \
-
 
 # All Target
 all: main-build
@@ -64,8 +63,8 @@ all: main-build
 main-build: Bai5_UART.elf secondary-outputs
 
 # Tool invocations
-Bai5_UART.elf: $(OBJS) $(USER_OBJS) E:\HK_241\Embedded\ System\LAB\LAB_2\BKIT_ARM4_Bai5_UART\Bai5_UART\STM32F407ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Bai5_UART.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\HK_241\Embedded System\LAB\LAB_2\BKIT_ARM4_Bai5_UART\Bai5_UART\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5_UART.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Bai5_UART.elf Bai5_UART.map: $(OBJS) $(USER_OBJS) C:\Users\Acer\Desktop\DHBK\HK241\HK241_Embedded_System\LAB2_doc\BT_LAB\LAB_2_ES\Bai5_UART\STM32F407ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Bai5_UART.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Acer\Desktop\DHBK\HK241\HK241_Embedded_System\LAB2_doc\BT_LAB\LAB_2_ES\Bai5_UART\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5_UART.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -84,17 +83,12 @@ Bai5_UART.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Bai5_UART.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Bai5_UART.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) $(OBJCOPY_HEX)$(SIZE_OUTPUT)$(OBJDUMP_LIST)$(EXECUTABLES)$(OBJS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(OBJCOPY_BIN) Bai5_UART.elf
+	-$(RM) Bai5_UART.elf Bai5_UART.hex Bai5_UART.list Bai5_UART.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
@@ -103,6 +97,6 @@ fail-specified-linker-script-missing:
 warn-no-linker-script-specified:
 	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
 
-.PHONY: all clean dependents fail-specified-linker-script-missing warn-no-linker-script-specified
+.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
 -include ../makefile.targets

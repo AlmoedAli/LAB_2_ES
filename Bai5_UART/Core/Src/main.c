@@ -67,7 +67,7 @@ void test_Uart();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void test_7seg(uint16_t hours, uint16_t minute);
+void set_7seg(uint16_t hours, uint16_t minute);
 /* USER CODE END 0 */
 
 /**
@@ -121,8 +121,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//
-	  // Set colon 2Hz
 	  if(isFlagColon() == 1)
 	  {
 		  toggle = 1 - toggle;
@@ -244,12 +242,12 @@ void test_Uart(){
 	}
 }
 
-void set_7seg()
+void set_7seg(uint16_t hours, uint16_t minute)
 {
-	led7_SetDigit(1, 0, 0);
-	led7_SetDigit(2, 1, 0);
-	led7_SetDigit(3, 2, 0);
-	led7_SetDigit(4, 3, 0);
+	led7_SetDigit(hours/10, 0, 1);
+	led7_SetDigit(hours%10, 1, 1);
+	led7_SetDigit(minute/10, 2, 0);
+	led7_SetDigit(minute%10, 3, 0);
 }
 /* USER CODE END 4 */
 

@@ -92,7 +92,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			timerClock--;
 			if(timerClock == 0) {
 				flag_timerClock = 1;
-				timerClock = 250;
+				timerClock = 1000;
 			}
 		}
 
