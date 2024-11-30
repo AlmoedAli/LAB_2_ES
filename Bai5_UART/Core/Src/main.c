@@ -112,8 +112,8 @@ int main(void)
   uint8_t toggle = 1;
   setTimer2(250);
 
-  uint16_t hours = 0;
-  uint16_t minute = 0;
+  uint16_t hours = 1;
+  uint16_t minute = 2;
   uint16_t second = 0;
 
   setTimerColon(250);
@@ -130,8 +130,10 @@ int main(void)
 	  {
 		  second++;
 		  if(second > 59){
+			  second = 0;
 			  minute++;
 			  if(minute>59){
+				  minute = 0;
 				  hours++;
 				  if(hours>23){
 					  hours = 0;
