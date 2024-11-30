@@ -39,15 +39,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00023dd7  00000000  00000000  00022836  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001bd48  00000000  00000000  0004660d  2**0
+ 18 .debug_line   0001bd43  00000000  00000000  0004660d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d26f7  00000000  00000000  00062355  2**0
+ 19 .debug_str    000d26f7  00000000  00000000  00062350  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  00134a4c  2**0
+ 20 .comment      00000043  00000000  00000000  00134a47  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00005650  00000000  00000000  00134a90  2**2
+ 21 .debug_frame  00005650  00000000  00000000  00134a8c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000088  00000000  00000000  0013a0e0  2**0
+ 22 .debug_line_str 00000088  00000000  00000000  0013a0dc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1944,11 +1944,11 @@ int main(void)
  8000ee2:	2b01      	cmp	r3, #1
  8000ee4:	d1ed      	bne.n	8000ec2 <main+0x52>
 	  {
-		  set_7seg(1, 2, 3, 4);
- 8000ee6:	2304      	movs	r3, #4
- 8000ee8:	2203      	movs	r2, #3
- 8000eea:	2102      	movs	r1, #2
- 8000eec:	2001      	movs	r0, #1
+		  set_7seg(buffer7Led[0], buffer7Led[1], buffer7Led[2], buffer7Led[3]);
+ 8000ee6:	88b8      	ldrh	r0, [r7, #4]
+ 8000ee8:	88f9      	ldrh	r1, [r7, #6]
+ 8000eea:	893a      	ldrh	r2, [r7, #8]
+ 8000eec:	897b      	ldrh	r3, [r7, #10]
  8000eee:	f000 f899 	bl	8001024 <set_7seg>
 		  swap = buffer7Led[0];
  8000ef2:	88bb      	ldrh	r3, [r7, #4]
@@ -1962,8 +1962,8 @@ int main(void)
 		  buffer7Led[2] = buffer7Led[3];
  8000efe:	897b      	ldrh	r3, [r7, #10]
  8000f00:	813b      	strh	r3, [r7, #8]
-		  buffer7Led[3] = buffer7Led[0];
- 8000f02:	88bb      	ldrh	r3, [r7, #4]
+		  buffer7Led[3] = swap;
+ 8000f02:	89bb      	ldrh	r3, [r7, #12]
  8000f04:	817b      	strh	r3, [r7, #10]
 	  if(isFlagColon() == 1)
  8000f06:	e7dc      	b.n	8000ec2 <main+0x52>

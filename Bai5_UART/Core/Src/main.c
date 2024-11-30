@@ -126,12 +126,12 @@ int main(void)
 	  }
 	  if(isFlagClock() == 1)
 	  {
-		  set_7seg(1, 2, 3, 4);
+		  set_7seg(buffer7Led[0], buffer7Led[1], buffer7Led[2], buffer7Led[3]);
 		  swap = buffer7Led[0];
 		  buffer7Led[0] = buffer7Led[1];
 		  buffer7Led[1] = buffer7Led[2];
 		  buffer7Led[2] = buffer7Led[3];
-		  buffer7Led[3] = buffer7Led[0];
+		  buffer7Led[3] = swap;
 	  }
     /* USER CODE BEGIN 3 */
   }
