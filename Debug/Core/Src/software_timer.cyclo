@@ -1,0 +1,5 @@
+../Core/Src/software_timer.c:21:6:timer_init	1
+../Core/Src/software_timer.c:25:6:setTimer2	1
+../Core/Src/software_timer.c:31:10:isFlagModify	2
+../Core/Src/software_timer.c:40:6:setFlagModifyTimer	1
+../Core/Src/software_timer.c:45:6:HAL_TIM_PeriodElapsedCallback	6
